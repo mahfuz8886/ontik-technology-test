@@ -25,17 +25,11 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
-    //Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/users', [App\Http\Controllers\HomeController::class, 'admin_show_user'])->name('admin_show_user');
-    Route::get('/edit-user/{user}', [App\Http\Controllers\HomeController::class, 'edit_user'])->name('edit_user');
-    Route::put('/edit-user/{user}', [App\Http\Controllers\HomeController::class, 'update_user'])->name('edit_user');
-    Route::get('/generate/affiliate/link', [App\Http\Controllers\HomeController::class, 'generate_link'])->name('generate_link');
-    Route::get('/generate/link', [App\Http\Controllers\HomeController::class, 'link_create'])->name('link_create');
-
     // ontic
     Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products');
     Route::get('/find/subcategory/info', [App\Http\Controllers\ProductController::class, 'find_subcategory'])->name('find_subcategory');
+
+    Route::post('/add/product', [App\Http\Controllers\ProductController::class, 'add_product'])->name('add_product');
 });
 
 

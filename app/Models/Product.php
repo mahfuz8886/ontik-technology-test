@@ -9,5 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    //protected $table = 'name_of_table';
+    public function subcategory() {
+        return $this->belongsTo(Subcategory::class);
+    }
 }

@@ -152,7 +152,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="" id="add-form">
+                    <form action="{{ route('add_product') }}" id="add-form" method="post">
+                        @csrf
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -204,12 +205,13 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                        {{-- </form> --}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary">Submit</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -240,7 +242,7 @@
                                 .title +
                                 ' </option>';
                         });
-                        $('#subcategory_id').html(options);
+                        $('.subcategory_id').html(options);
                     }
                 });
             });
@@ -262,6 +264,12 @@
                 return json_string;
 
             }
+
+            $('#save-product').on('click', function(e) {
+                e.preventDefault();
+                var jsonObj = jsonData("#addForm");
+                console.log(jsonObj);
+            });
 
         });
     </script>

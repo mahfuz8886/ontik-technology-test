@@ -13,6 +13,10 @@ class ProductController extends Controller
         return view('backend.product.manage', compact('categories'));
     }
 
+    public function add_product(Request $request) {
+        return $request->all();
+    }
+
     public function find_subcategory(Request $request) {
         $subcategories = Subcategory::where('category_id', $request->category_id)->get();
         return response()->json($subcategories);
