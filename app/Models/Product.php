@@ -10,6 +10,10 @@ class Product extends Model
     use HasFactory;
 
     public function subcategory() {
-        return $this->belongsTo(Subcategory::class);
+        return $this->belongsTo(Subcategory::class)->with('category');
+    }
+
+    public function category() {
+        return $this->hasOneThrough(Category::class, Subcategory::class);
     }
 }

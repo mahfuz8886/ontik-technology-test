@@ -6,6 +6,13 @@
 
     <div class="container-fluid px-4">
 
+        @if (Session::has('message'))
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                {{ Session::get('message') }}
+            </div>
+        @endif
+
         <div class="card mt-4">
             <div class="card-header">
                 <h4>
@@ -66,53 +73,27 @@
                                 <th>#</th>
                                 <th>Title</th>
                                 <th>Description</th>
-                                <th>Variant</th>
+                                <th>Price</th>
                                 <th width="150px">Action</th>
                             </tr>
                         </thead>
 
                         <tbody>
-
-                            {{-- @forelse ($products as $product)
-                              <tr>
-                                  <td> {{ $loop->iteration }} </td>
-                                  <td> {{ $product->title ?? '' }} <br> Created at :
-                                      {{ date('d-M-Y', strtotime($product->created_at)) }} </td>
-                                  <td> {{ substr($product->description, 0, 25) }} </td>
-                                  <td>
-  
-                                      @foreach ($product->product_variant_prices->take(2) as $item)
-                                          <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
-  
-                                              <dt class="col-sm-3 pb-0">
-                                                  {{ strtoupper($item->size->variant ?? '') }}/
-                                                  {{ ucfirst($item->color->variant ?? '') }}/
-                                                  {{ ucfirst($item->style->variant ?? '') }}
-                                              </dt>
-                                              <dd class="col-sm-9">
-                                                  <dl class="row mb-0">
-                                                      <dt class="col-sm-4 pb-0">Price :
-                                                          {{ number_format($item->price ?? 0, 2) }}</dt>
-                                                      <dd class="col-sm-8 pb-0">InStock :
-                                                          {{ number_format($item->stock ?? 0, 2) }}</dd>
-                                                  </dl>
-                                              </dd>
-                                          </dl>
-                                      @endforeach
-  
-                                      <button onclick="$('#variant').toggleClass('h-auto')" class="btn btn-sm btn-link">Show
-                                          more</button>
-                                  </td>
-                                  <td>
-                                      <div class="btn-group btn-group-sm">
-                                          <a href="{{ route('product.edit', $product->id) }}"
-                                              class="btn btn-success">Edit</a>
-                                      </div>
-                                  </td>
-                              </tr>
-                          @empty
-                          @endforelse --}}
-
+                            @foreach ($products as $product)
+                                <tr>
+                                    <td> {{ $loop->iteration }} </td>
+                                    <td> {{ $product->title }} </td>
+                                    <td> {{ $product->title }} </td>
+                                    <td> {{ $product->price }} </td>
+                                    <td>
+                                        <form action="{{ route('delete_product', ['id' => $product->id]) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="submit" value="Delete" class="btn btn-danger">
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
 
                     </table>
@@ -148,7 +129,7 @@
         <div class="modal-dialog modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Add Product</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -179,7 +160,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label"> Category </label>
-                                    <select name="subcategory_id" id="subcategory_id" class="form-control subcategory_id">
+                                    <select name="subcategory_id" id="subcategory_id"
+                                        class="form-control subcategory_id">
                                         <option value=""> --Select Subcategory mm-- </option>
                                     </select>
                                 </div>
@@ -205,11 +187,10 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- </form> --}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
                 </form>
             </div>

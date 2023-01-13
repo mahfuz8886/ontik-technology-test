@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/find/subcategory/info', [App\Http\Controllers\ProductController::class, 'find_subcategory'])->name('find_subcategory');
 
     Route::post('/add/product', [App\Http\Controllers\ProductController::class, 'add_product'])->name('add_product');
+    Route::delete('/delete/product', [App\Http\Controllers\ProductController::class, 'delete_product'])->name('delete_product');
 });
 
 
